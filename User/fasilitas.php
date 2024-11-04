@@ -13,12 +13,12 @@
       <nav class="navbar">
         <img src="assets/logoagape.png" alt="Logoagape" class="logo-left" />
         <div class="top-nav">
-          <a href="Beranda.html">Beranda</a>
-          <a href="tentang.html">Tentang</a>
-          <a href="program.htm">Program</a>
-          <a href="fasilitas.html">Fasilitas</a>
-          <a href="kontak.html">Kontak</a>
-          <a href="Galery.html">Galeri</a>
+          <a href="Beranda.php">Beranda</a>
+          <a href="tentang.php">Tentang</a>
+          <a href="program.php">Program</a>
+          <a href="fasilitas.php">Fasilitas</a>
+          <a href="kontak.php">Kontak</a>
+          <a href="Galery.php">Galeri</a>
         </div>
       </nav>
       <!-- Navbar and-->
