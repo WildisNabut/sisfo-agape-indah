@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Sisfo Agape</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -37,7 +37,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="index.php">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dasboard</span></a
+            <span>Dashboard</span></a
           >
         </li>
 
@@ -46,7 +46,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Data Sekolah</span>
           </a>
@@ -56,6 +56,7 @@
               <a class="collapse-item" href="guru.php">Guru</a>
               <a class="collapse-item" href="siswa.php">Siswa</a>
               <a class="collapse-item" href="kelas.php">Kelas</a>
+              
               <a class="collapse-item" href="pengumuman.php">Pengumuman</a>
               <a class="collapse-item" href="kegiatan.php">Kegiatan</a>
             </div>
@@ -160,7 +161,7 @@
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Wildis</span>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                   <img class="img-profile rounded-circle" src="img/undraw_profile.svg" />
                 </a>
                 <!-- Dropdown - User Information -->
@@ -188,70 +189,62 @@
           </nav>
           <!-- End of Topbar -->
 
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-            <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Galery</h1>
-              <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <h1 class="h3 mb-0 text-gray-800">Form Tambah Kegiatan</h1>
+    <form method="POST" action="tkegiatan.php" enctype="multipart/form-data">
+
+        <!-- Judul Kegiatan -->
+        <div class="form-group row">
+            <label for="inputjudul" class="col-sm-2 col-form-label">Judul</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputjudul" name="judul" required>
             </div>
-            
-              <!-- DataTales Example -->
-              <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                  <a href="Tambahkegiatan.php" class="btn btn-primary ">Tambah Data</a>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                              <thead>
-                                  <tr>
-                                      <th class="header-judul">No</th>
-                                      <th class="header-judul">Judul Galeri</th>
-                                      <th class="header-tanggal">Tanggal Unggah</th>
-                                      <th class="header-deskripsi">Deskripsi</th>
-                                      <th class="header-gambar">Gambar</th>
-                                      <th class="header-aksi">aksi</th>
-
-                                  </tr>
-                              </thead>
-                                <?php
-                              include 'koneksi.php';
-                              $i =1;
-                              $data = mysqli_query($koneksi, "SELECT * FROM kegiatan");
-
-                              while($d = mysqli_fetch_array($data)) {
-                              ?>
-                                  <tbody>
-                                      <tr>
-                                          <th><?php echo $i++ ; ?></th>
-                                          <th><?php echo $d['judul']; ?></th>
-                                          <th><?php echo $d['tgl_unggah']; ?></th>
-                                          <th><?php echo $d['dekripsi']; ?></th>
-                                          <th>
-                                              <img src="<?php echo $d['gambar']; ?>" alt="<?php echo $d['judul']; ?>" style="width: 100px; height: auto;">
-                                          </th>
-                                          <th>
-                                              <a href="#" class="btn btn-success">Edit</a>
-                                              <a href="#" class="btn btn-danger">Hapus</a>
-                                          </th>
-                                      </tr>
-                              <?php
-                              }
-                              ?>
-
-                              </tbody>
-                          </table>
-                      </div>
-                   </div>
-                </div>
-              </div>
+        </div>
+        
+        <!-- Tanggal Kegiatan -->
+        <div class="form-group row">
+            <label for="inputtanggal" class="col-sm-2 col-form-label">Tanggal</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="inputtanggal" name="tanggal" required>
             </div>
-          </div>
+        </div>
+
+        <!-- Deskripsi Kegiatan -->
+        <div class="form-group row">
+            <label for="inputdeskripsi" class="col-sm-2 col-form-label">Deskripsi</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="inputdeskripsi" name="deskripsi" rows="3" required></textarea>
+            </div>
+        </div>
+
+        <!-- Gambar Kegiatan -->
+        <div class="form-group row">
+            <label for="inputgambar" class="col-sm-2 col-form-label">Gambar</label>
+            <div class="col-sm-10">
+                <input type="file" class="form-control-file" id="inputgambar" name="gambar" accept="image/*" required>
+            </div>
+        </div>
+
+        <!-- Button Tambah Data -->
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Tambah Kegiatan</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- /.container-fluid -->
+
+
+
+
+          <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-
-
 
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
