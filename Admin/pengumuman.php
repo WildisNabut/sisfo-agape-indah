@@ -225,7 +225,7 @@
                     <tr>
                     <th> <?php echo $i++; ?> </th>
                     <th> <?php echo $d['judul']; ?> </th>
-                    <th> <?php echo $d['deskripsi']; ?> </th>
+                    <th> <?php echo $d['dekripsi']; ?> </th>
                     <th> <?php echo $d['tanggal']; ?> </th>
                     <th> <?php echo $d['status']; ?> </th>
                     <th>

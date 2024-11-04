@@ -83,18 +83,6 @@
               <i class="fa fa-bars"></i>
             </button>
 
-            <!-- Topbar Search -->
-            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-              <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">
-                    <i class="fas fa-search fa-sm"></i>
-                  </button>
-                </div>
-              </div>
-            </form>
-
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
               <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -196,11 +184,21 @@
               <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
             
-             <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
+            <div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between align-items-center">
         <a href="tambahsiswa.php" class="btn btn-primary">Tambah Data</a>
+        <form class="form-inline" method="POST" action="">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" name="search" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
+    
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -222,13 +220,16 @@
                     <?php
                     include 'koneksi.php';
                     $i = 1;
-                    // Query untuk mengambil data siswa, kelas, dan guru
+                    $search = isset($_POST['search']) ? $_POST['search'] : '';
+
+                    // Query untuk mengambil data siswa, kelas, dan guru dengan pencarian
                     $query = "
                         SELECT s.nis, s.nama, s.jk, s.tgl_lahir, s.alamat, s.keterangan, 
                                k.nama_kelas, g.nama_guru 
                         FROM siswa s
                         LEFT JOIN kelas k ON s.id_kelas = k.id_kelas
                         LEFT JOIN guru g ON s.id_guru = g.id_guru
+                        WHERE s.nama LIKE '%$search%' OR s.nis LIKE '%$search%'
                     ";
                     $data = mysqli_query($koneksi, $query);
 
@@ -238,10 +239,10 @@
                             <td><?php echo $i++; ?></td>
                             <td><?php echo $d['nis']; ?></td>
                             <td><?php echo $d['nama']; ?></td>
-                            <td><?php echo isset($d['nama_guru']) ? $d['nama_guru'] : 'Tidak Ada'; ?></td> <!-- Menampilkan nama guru -->
+                            <td><?php echo isset($d['nama_guru']) ? $d['nama_guru'] : 'Tidak Ada'; ?></td>
                             <td><?php echo $d['jk']; ?></td>
                             <td><?php echo $d['tgl_lahir']; ?></td>
-                            <td><?php echo isset($d['nama_kelas']) ? $d['nama_kelas'] : 'Tidak Ada'; ?></td> <!-- Menampilkan nama kelas -->
+                            <td><?php echo isset($d['nama_kelas']) ? $d['nama_kelas'] : 'Tidak Ada'; ?></td>
                             <td><?php echo $d['alamat']; ?></td>
                             <td><?php echo $d['keterangan']; ?></td>
                             <td>
@@ -257,6 +258,8 @@
         </div>
     </div>
 </div>
+
+
 
 
               </div>
