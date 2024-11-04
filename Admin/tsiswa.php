@@ -15,6 +15,7 @@ $id_guru = $_POST['wali'];
 // Cek apakah id_kelas ada di tabel kelas
 $cek_kelas = mysqli_query($koneksi, "SELECT * FROM kelas WHERE id_kelas = '$id_kelas'");
 if (mysqli_num_rows($cek_kelas) > 0) {
+    
     // Jika id_kelas ditemukan, lanjutkan proses penyimpanan data
     $query = "INSERT INTO siswa (nis, nama, jk, tgl_lahir, id_kelas, alamat, keterangan, id_guru) 
               VALUES ('$nis', '$nama', '$jk', '$tgl_lahir', '$id_kelas', '$alamat', '$keterangan', '$id_guru')";
