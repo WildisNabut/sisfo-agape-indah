@@ -196,10 +196,10 @@
               <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
             </div>
             
- <!-- DataTales Example -->
- <div class="card shadow mb-4">
+             <!-- DataTales Example -->
+<div class="card shadow mb-4">
     <div class="card-header py-3">
-    <a href="tambahsiswa.php" class="btn btn-primary ">Tambah Data</a>
+        <a href="tambahsiswa.php" class="btn btn-primary">Tambah Data</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -209,45 +209,56 @@
                         <th>No</th>
                         <th>NISN</th>
                         <th>Nama</th>
+                        <th>Wali Kelas</th>
                         <th>Jenis Kelamin</th>
                         <th>Tanggal Lahir</th>
                         <th>Kelas</th>
                         <th>Alamat</th>
                         <th>Keterangan</th>
-                        <th>Aksi </th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
-                <?php
-                include 'koneksi.php';
-                $i = 1;
-                $data = mysqli_query($koneksi, "SELECT * FROM  siswa");
-
-                while($d =  mysqli_fetch_array($data) ){
-                ?>
-
                 <tbody>
-                    <tr>
-                    <th> <?php echo $i++; ?> </th>
-                    <th> <?php echo $d['nis']; ?> </th>
-                    <th> <?php echo $d['nama']; ?> </th>
-                    <th> <?php echo $d['jk']; ?> </th>
-                    <th> <?php echo $d['tgl_lahir']; ?> </th>
-                    <th> <?php echo $d['id_kelas']; ?> </th>
-                    <th> <?php echo $d['alamat']; ?> </th>
-                    <th> <?php echo $d['keterangan']; ?> </th>
-                        <th>
-                          <a href="#" class="btn btn-success">Edit</a>
-                          <a href="#" class="btn btn-danger">Hapus</a>
-                      </th>
-                    </tr>
                     <?php
-                     }
+                    include 'koneksi.php';
+                    $i = 1;
+                    // Query untuk mengambil data siswa, kelas, dan guru
+                    $query = "
+                        SELECT s.nis, s.nama, s.jk, s.tgl_lahir, s.alamat, s.keterangan, 
+                               k.nama_kelas, g.nama_guru 
+                        FROM siswa s
+                        LEFT JOIN kelas k ON s.id_kelas = k.id_kelas
+                        LEFT JOIN guru g ON s.id_guru = g.id_guru
+                    ";
+                    $data = mysqli_query($koneksi, $query);
+
+                    while ($d = mysqli_fetch_array($data)) {
+                    ?>
+                        <tr>
+                            <td><?php echo $i++; ?></td>
+                            <td><?php echo $d['nis']; ?></td>
+                            <td><?php echo $d['nama']; ?></td>
+                            <td><?php echo isset($d['nama_guru']) ? $d['nama_guru'] : 'Tidak Ada'; ?></td> <!-- Menampilkan nama guru -->
+                            <td><?php echo $d['jk']; ?></td>
+                            <td><?php echo $d['tgl_lahir']; ?></td>
+                            <td><?php echo isset($d['nama_kelas']) ? $d['nama_kelas'] : 'Tidak Ada'; ?></td> <!-- Menampilkan nama kelas -->
+                            <td><?php echo $d['alamat']; ?></td>
+                            <td><?php echo $d['keterangan']; ?></td>
+                            <td>
+                                <a href="#" class="btn btn-success">Edit</a>
+                                <a href="#" class="btn btn-danger">Hapus</a>
+                            </td>
+                        </tr>
+                    <?php
+                    }
                     ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+
               </div>
             </div>
           </div>

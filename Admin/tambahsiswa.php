@@ -199,12 +199,26 @@
                 <input type="text" class="form-control" id="inputnisn" name="nis">
             </div>
         </div>
+
+
         <div class="form-group row">
             <label for="inputnama" class="col-sm-2 col-form-label">Nama</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="inputnama" name="nama">
             </div>
         </div>
+
+        <!-- Input Guru dengan Opsi Pilih dari Tabel -->
+        <div class="form-group row">
+            <label for="inputWali" class="col-sm-2 col-form-label">Wali Kelas</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="inputwali" name="wali" placeholder="Pilih Wali kelas" readonly>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalGuru">Pilih Wali</button>
+            </div>
+        </div>
+
         <div class="form-group row">
             <label for="inputjeniskelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
             <div class="col-sm-10">
@@ -220,6 +234,7 @@
                 <input type="date" class="form-control" id="inputtanggallahir" name="tanggal_lahir">
             </div>
         </div>
+
         <!-- Input Kelas dengan Opsi Pilih dari Tabel -->
         <div class="form-group row">
             <label for="inputkelas" class="col-sm-2 col-form-label">Kelas</label>
@@ -230,6 +245,10 @@
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalKelas">Pilih Kelas</button>
             </div>
         </div>
+
+        
+
+
         <div class="form-group row">
             <label for="inputalamat" class="col-sm-2 col-form-label">Alamat</label>
             <div class="col-sm-10">
@@ -265,6 +284,8 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+
+                            <th>ID Kelas</th>
                             <th>Nama Kelas</th>
                             <th>Aksi</th>
                         </tr>
@@ -276,6 +297,8 @@
                         while($d = mysqli_fetch_array($data)) {
                         ?>
                         <tr>
+
+                            <td><?php echo $d['id_kelas']; ?></td>
                             <td><?php echo $d['nama_kelas']; ?></td>
                             <td>
                                 <button type="button" class="btn btn-primary pilih-kelas" data-id="<?php echo $d['id_kelas']; ?>" data-nama="<?php echo $d['nama_kelas']; ?>">Pilih</button>
@@ -292,12 +315,65 @@
 </div>
 
 <script>
-    // Script untuk mengisi input Nama Kelas saat tombol "Pilih" diklik
+    // Script untuk mengisi input ID Kelas saat tombol "Pilih" diklik
     document.querySelectorAll('.pilih-kelas').forEach(button => {
         button.addEventListener('click', function() {
-            const namaKelas = this.getAttribute('data-nama');
-            document.getElementById('inputkelas').value = namaKelas;
+            const idKelas = this.getAttribute('data-id'); // Mengambil ID Kelas
+            document.getElementById('inputkelas').value = idKelas; // Mengisi input dengan ID Kelas
             $('#modalKelas').modal('hide'); // Menutup modal setelah memilih kelas
+        });
+    });
+</script>
+
+<!-- Modal Tabel Guru -->
+<div class="modal fade" id="modalGuru" tabindex="-1" role="dialog" aria-labelledby="modalGuruLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalGuruLabel">Pilih Wali Kelas Siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered" id="dataTableGuru" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID Guru</th>
+                            <th>Nama Guru</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        include 'koneksi.php';
+                        $dataGuru = mysqli_query($koneksi, "SELECT * FROM guru");
+                        while($g = mysqli_fetch_array($dataGuru)) {
+                        ?>
+                        <tr>
+                            <td><?php echo $g['id_guru']; ?></td>
+                            <td><?php echo $g['nama_guru']; ?></td>
+                            <td>
+                                <button type="button" class="btn btn-primary pilih-guru" data-id="<?php echo $g['id_guru']; ?>" data-nama="<?php echo $g['nama_guru']; ?>">Pilih</button>
+                            </td>
+                        </tr>
+                        <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Script untuk mengisi input ID Guru saat tombol "Pilih" diklik
+    document.querySelectorAll('.pilih-guru').forEach(button => {
+        button.addEventListener('click', function() {
+            const idGuru = this.getAttribute('data-id'); // Mengambil ID Guru
+            document.getElementById('inputwali').value = idGuru; // Mengisi input dengan ID Guru
+            $('#modalGuru').modal('hide'); // Menutup modal setelah memilih guru
         });
     });
 </script>
