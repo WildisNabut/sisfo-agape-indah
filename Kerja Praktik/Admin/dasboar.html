@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - Sekolah</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Admin Sekolah</h2>
+      <ul>
+        <li><a href="#dashboard" onclick="showSection('dashboard')">Dashboard</a></li>
+        <li><a href="#tentang" onclick="showSection('tentang')">Tentang</a></li>
+        <li><a href="#galeri" onclick="showSection('galeri')">Galeri</a></li>
+        <li><a href="#logout" onclick="showSection('logout')">Logout</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <header>
+        <h1>Dashboard Admin</h1>
+        <p>Selamat datang di Dashboard Admin Sekolah</p>
+      </header>
+
+      <section id="dashboard" class="active">
+        <h2>Statistik Sekolah</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Jumlah Siswa</h3>
+            <p>1200</p>
+          </div>
+          <div class="card">
+            <h3>Jumlah Guru</h3>
+            <p>80</p>
+          </div>
+          <div class="card">
+            <h3>Jumlah Kelas</h3>
+            <p>35</p>
+          </div>
+          <div class="card">
+            <h3>Acara Mendatang</h3>
+            <p>5</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tentang">
+        <h2>Tentang Sekolah</h2>
+        <form id="aboutForm">
+          <label for="visi">Visi:</label>
+          <textarea id="visi" rows="4" required></textarea>
+          <label for="misi">Misi:</label>
+          <textarea id="misi" rows="4" required></textarea>
+          <button type="submit">Simpan Perubahan</button>
+        </form>
+      </section>
+
+      <section id="galeri">
+        <h2>Galeri</h2>
+        <form id="uploadForm">
+          <label for="imageUpload">Unggah Foto:</label>
+          <input type="file" id="imageUpload" accept="image/*" multiple required />
+          <button type="submit">Simpan Gambar</button>
+        </form>
+        <div class="container">
+          <h3>Gambar di Galeri</h3>
+          <div class="gallery" id="galleryContainer"></div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Function untuk menampilkan dan menyembunyikan section
+      function showSection(sectionId) {
+        const sections = document.querySelectorAll(".main-content section");
+        sections.forEach((section) => section.classList.remove("active"));
+        document.getElementById(sectionId).classList.add("active");
+
+        if (sectionId === "tentang") {
+          loadAbout();
+        }
+        if (sectionId === "galeri") {
+          loadImages(); // Load images when galeri section is shown
+        }
+      }
+
+      // Load about content from Local Storage
+      function loadAbout() {
+        const visi = localStorage.getItem("visi") || "";
+        const misi = localStorage.getItem("misi") || "";
+        document.getElementById("visi").value = visi;
+        document.getElementById("misi").value = misi;
+      }
+
+      // Save about content to Local Storage
+      document.getElementById("aboutForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const visi = document.getElementById("visi").value;
+        const misi = document.getElementById("misi").value;
+        localStorage.setItem("visi", visi);
+        localStorage.setItem("misi", misi);
+        alert("Data berhasil disimpan!");
+      });
+
+      // Load images from Local Storage
+      function loadImages() {
+        const galleryContainer = document.getElementById("galleryContainer");
+        galleryContainer.innerHTML = ""; // Clear existing images
+        const images = JSON.parse(localStorage.getItem("galleryImages")) || [];
+
+        images.forEach((image, index) => {
+          const imgElement = document.createElement("img");
+          imgElement.src = image;
+          imgElement.alt = "Gallery Image";
+          imgElement.dataset.index = index; // Store index for deletion
+          imgElement.onclick = function () {
+            if (confirm("Apakah Anda ingin menghapus gambar ini?")) {
+              images.splice(index, 1); // Hapus gambar dari array
+              localStorage.setItem("galleryImages", JSON.stringify(images));
+              loadImages(); // Reload images
+            }
+          };
+          galleryContainer.appendChild(imgElement);
+        });
+      }
+
+      // Handle image uploads
+      document.getElementById("uploadForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const images = document.getElementById("imageUpload").files;
+        const galleryImages = JSON.parse(localStorage.getItem("galleryImages")) || [];
+
+        for (const image of images) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            galleryImages.push(e.target.result);
+            localStorage.setItem("galleryImages", JSON.stringify(galleryImages));
+            loadImages(); // Reload images
+          };
+          reader.readAsDataURL(image);
+        }
+      });
+
+      // Memuat gambar saat halaman dimuat
+      document.addEventListener("DOMContentLoaded", loadImages);
+    </script>
+  </body>
+</html>
