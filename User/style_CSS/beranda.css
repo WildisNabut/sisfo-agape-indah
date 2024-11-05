@@ -89,19 +89,19 @@ body {
 }
 .hero {
   position: relative;
-    background-image: url('background.jpg'); /* Ganti dengan URL gambar latar belakang */
-    background-color: rgba(18, 14, 5, 0.829); /* Warna overlay hitam dengan transparansi 50% */
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay; /* Menggabungkan warna latar belakang dan gambar */
-    height: 100vh; /* Mengatur gambar latar belakang memenuhi tinggi viewport */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    transition: background-image 1s ease-in-out;
+  background-image: url("background.jpg"); /* Ganti dengan URL gambar latar belakang */
+  background-color: rgba(18, 14, 5, 0.829); /* Warna overlay hitam dengan transparansi 50% */
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay; /* Menggabungkan warna latar belakang dan gambar */
+  height: 100vh; /* Mengatur gambar latar belakang memenuhi tinggi viewport */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  transition: background-image 1s ease-in-out;
 }
 
 .overlay {
@@ -268,4 +268,28 @@ h2 {
   padding: 10px 0;
   text-align: center;
   font-size: 0.9em;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.facility-list {
+  list-style: none;
+  padding: 0;
+}
+
+.facility-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.facility-list li i {
+  margin-right: 10px;
+  color: #007bff;
 }

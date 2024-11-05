@@ -64,6 +64,17 @@
           </div>
         </li>
 
+          <!-- Divider -->
+          <hr class="sidebar-divider" />
+
+                  <!-- Nav Item - Buku -->
+          <li class="nav-item active">
+              <a class="nav-link" href="renungan.php">
+                  <i class="fas fa-fw fa-book"></i>
+                  <span>Renungan</span>
+              </a>
+          </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
 

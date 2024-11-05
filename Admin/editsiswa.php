@@ -1,3 +1,53 @@
+<?php
+include 'koneksi.php';
+
+if (isset($_GET['nis'])) {
+    $nis = $_GET['nis'];
+
+    // Mengambil data siswa berdasarkan NIS
+    $query = "SELECT * FROM siswa WHERE nis='$nis'";
+    $result = mysqli_query($koneksi, $query);
+    $data = mysqli_fetch_assoc($result);
+
+    if (!$data) {
+        echo "Data tidak ditemukan!";
+        exit();
+    }
+
+    if (isset($_POST['update'])) {
+        // Mengambil data yang diupdate dari form
+        $nis = $_POST['nis'];
+        $nama = $_POST['nama'];
+        $jk = $_POST['jk'];
+        $tgl_lahir = $_POST['tgl_lahir'];
+        $alamat = $_POST['alamat'];
+        $keterangan = $_POST['keterangan'];
+        
+        // Query untuk update data
+        $updateQuery = "UPDATE siswa SET 
+                        nis='$nis', 
+                        nama='$nama', 
+                        jk='$jk', 
+                        tgl_lahir='$tgl_lahir', 
+                        alamat='$alamat', 
+                        keterangan='$keterangan' 
+                        WHERE nis='$nis'";
+        
+        if (mysqli_query($koneksi, $updateQuery)) {
+            echo "Data berhasil diperbarui!";
+            header("Location: siswa.php");
+            exit();
+        } else {
+            echo "Gagal memperbarui data!";
+        }
+    }
+} else {
+    echo "NIS tidak ditemukan!";
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -88,7 +138,6 @@
       <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
-
           <!-- Topbar -->
           <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             <!-- Sidebar Toggle (Topbar) -->
@@ -96,21 +145,63 @@
               <i class="fa fa-bars"></i>
             </button>
 
-            <h4 class="modal-title" id="modalKelasLabel"> Form Tambah Siswa</h3>
+            <!-- Topbar Search -->
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+              <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                    <i class="fas fa-search fa-sm"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
+              <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+              <li class="nav-item dropdown no-arrow d-sm-none">
+                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-search fa-fw"></i>
+                </a>
+                <!-- Dropdown - Messages -->
+                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                  <form class="form-inline mr-auto w-100 navbar-search">
+                    <div class="input-group">
+                      <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+                      <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                          <i class="fas fa-search fa-sm"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </li>
+
+
               <div class="topbar-divider d-none d-sm-block"></div>
 
               <!-- Nav Item - User Information -->
               <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                  <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                   <img class="img-profile rounded-circle" src="img/undraw_profile.svg" />
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                  
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Settings
+                  </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Activity Log
+                  </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -124,11 +215,12 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <form method="POST" action="tsiswa.php">
+    <h1 class="h3 mb-0 text-gray-800">Form Edit Data Siswa</h1>
+    <form method="POST">
         <div class="form-group row">
             <label for="inputnisn" class="col-sm-2 col-form-label">NISN</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputnisn" name="nis">
+            <input type="text" class="form-control" id="inputnama" name="nama" value="<?php echo $data['nis']; ?>">
             </div>
         </div>
 
@@ -136,7 +228,7 @@
         <div class="form-group row">
             <label for="inputnama" class="col-sm-2 col-form-label">Nama</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputnama" name="nama">
+                <input type="text" class="form-control" id="inputnama" name="nama" value="<?php echo $data['nama']; ?>">
             </div>
         </div>
 
@@ -144,7 +236,7 @@
         <div class="form-group row">
             <label for="inputWali" class="col-sm-2 col-form-label">Wali Kelas</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputwali" name="wali" placeholder="Pilih Wali kelas" readonly>
+                <input type="text" class="form-control" id="inputwali" name="wali" placeholder="Pilih Wali kelas" readonly value="<?php echo $data['id_guru']; ?>">
             </div>
             <div class="col-sm-2">
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalGuru">Pilih Wali</button>
@@ -152,9 +244,9 @@
         </div>
 
         <div class="form-group row">
-            <label for="inputjeniskelamin" class="col-sm-2 col-form-label">Jenis Kelamin</label>
+            <label for="inputjeniskelamin" class="col-sm-2 col-form-label" >Jenis Kelamin</label>
             <div class="col-sm-10">
-                <select class="form-control" id="inputjeniskelamin" name="jenis_kelamin">
+                <select class="form-control" id="inputjeniskelamin" name="jenis_kelamin" value="<?php echo $data['jk']; ?>">
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option>
                 </select>
@@ -163,7 +255,7 @@
         <div class="form-group row">
             <label for="inputtanggallahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
             <div class="col-sm-10">
-                <input type="date" class="form-control" id="inputtanggallahir" name="tanggal_lahir">
+                <input type="date" class="form-control" id="inputtanggallahir" name="tanggal_lahir" value="<?php echo $data['tgl_lahir']; ?>">
             </div>
         </div>
 
@@ -171,7 +263,7 @@
         <div class="form-group row">
             <label for="inputkelas" class="col-sm-2 col-form-label">Kelas</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputkelas" name="kelas" placeholder="Pilih Nama Kelas" readonly>
+                <input type="text" class="form-control" id="inputkelas" name="kelas" placeholder="Pilih Nama Kelas" readonly value="<?php echo $data['id_kelas']; ?>">
             </div>
             <div class="col-sm-2">
                 <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalKelas">Pilih Kelas</button>
@@ -184,18 +276,19 @@
         <div class="form-group row">
             <label for="inputalamat" class="col-sm-2 col-form-label">Alamat</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="inputalamat" name="alamat" rows="3"></textarea>
+                <input type="text" class="form-control" id="inputalamat" name="alamat" value="<?php echo $data['alamat']; ?>" rows="3" >
             </div>
         </div>
+
         <div class="form-group row">
             <label for="inputketerangan" class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="inputketerangan" name="keterangan" rows="3"></textarea>
+                <input type="text" class="form-control" id="inputketerangan" name="keterangan" rows="3" value="<?php echo $data['keterangan']; ?>">
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Tambah Data</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </form>
@@ -235,13 +328,17 @@
                             <td>
                                 <button type="button" class="btn btn-primary pilih-kelas" data-id="<?php echo $d['id_kelas']; ?>" data-nama="<?php echo $d['nama_kelas']; ?>">Pilih</button>
                             </td>
+
                         </tr>
+
                         <?php
                         }
                         ?>
                     </tbody>
                 </table>
-                <a href="TambahKelas.php" class="btn btn-primary ">Tambah Data</a>
+                <div class="card-header py-3">
+                      <a href="TambahKelas.php" class="btn btn-primary ">Tambah Data</a>
+                  </div>
             </div>
         </div>
     </div>
@@ -295,7 +392,6 @@
                         ?>
                     </tbody>
                 </table>
-                <a href="tambahguru.php" class="btn btn-primary ">Tambah Data</a>        
             </div>
         </div>
     </div>

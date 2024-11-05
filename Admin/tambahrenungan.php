@@ -46,7 +46,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span>Data Sekolah</span>
           </a>
@@ -58,7 +58,7 @@
               <a class="collapse-item" href="kelas.php">Kelas</a>
               
               <a class="collapse-item" href="pengumuman.php">Pengumuman</a>
-              <a class="collapse-item" href="kegiatan.php">Galery</a>
+              <a class="collapse-item" href="kegiatan.php">Kegiatan</a>
             </div>
           </div>
         </li>
@@ -88,16 +88,16 @@
       <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
-           <!-- Topbar -->
-           <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Topbar -->
+          <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
             <!-- Sidebar Toggle (Topbar) -->
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
               <i class="fa fa-bars"></i>
             </button>
 
-            <h4 class="modal-title" id="modalKelasLabel"> Data Guru</h3>
+            <h4 class="modal-title" id="modalKelasLabel"> Form Tambah Renungan</h3>
             <!-- Topbar Navbar -->
-
             <ul class="navbar-nav ml-auto">
               <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -121,95 +121,73 @@
           </nav>
           <!-- End of Topbar -->
 
-          <!-- Begin Page Content -->
-              <div class="container-fluid">
+          
+    <!-- Begin Page Content -->
+     <div><h3 class="h3 mb-0 text-gray-800 text-center w-200">Form Tambah Renungan Harian</h3>
+     </div>
+    <div class="container-fluid">
+    
+    <form method="POST" action="#">
 
-             <!-- Page Heading -->
-      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-
-          <!-- Dropdown untuk memilih jumlah data per halaman -->
-          <form method="POST" action="" class="form-inline">
-              <div class="input-group mr-2">
-                  <label for="limit" class="mr-2">Tampilkan:</label>
-                  <select name="limit" id="limit" class="custom-select" onchange="this.form.submit()">
-                      <option value="10" <?php if (isset($_POST['limit']) && $_POST['limit'] == 10) echo 'selected'; ?>>10</option>
-                      <option value="15" <?php if (isset($_POST['limit']) && $_POST['limit'] == 25) echo 'selected'; ?>>15</option>
-                      <option value="20" <?php if (isset($_POST['limit']) && $_POST['limit'] == 50) echo 'selected'; ?>>20</option>
-                  </select>
-              </div>
-          </form>  
-
-          <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download</a>
-          </div>
-            </form>  
-
-           <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            <a href="tambahguru.php" class="btn btn-primary">Tambah Data</a>
-            <form class="form-inline" method="POST" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" name="search" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th class="header-kelas">No</th>
-                        <th class="header-Nip">NIP</th>
-                        <th class="header-kelas">Nama</th>
-                        <th class="header-kelas">Jenis Kelamin</th>
-                        <th>No Tlpn</th>
-                        <th>Alamat</th>
-                        <th>Aksi</th>
-
-                    </tr>
-                </thead>
-                <?php
-                              include 'koneksi.php';
-                              $i = 1;
-                              $data = mysqli_query($koneksi, "SELECT * FROM  guru");
-
-                              while($d =  mysqli_fetch_array($data) ){
-                              ?>
-                <tbody>
-                    <tr>
-                    <th> <?php echo $i++; ?> </th>
-                    <th> <?php echo $d['nip']; ?> </th>
-                    <th> <?php echo $d['nama_guru']; ?> </th>
-                    <th> <?php echo $d['jk']; ?> </th>
-                    <th> <?php echo $d['tlpn']; ?> </th>
-                    <th> <?php echo $d['alamat']; ?> </th>
-                    <th>
-                        <a href="#" class="btn btn-success">Edit</a>
-                        <a href="#" class="btn btn-danger">Hapus</a>
-                    </th>
-                    </tr>
-                    <?php
-                     }
-                     ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-              </div>
+        <!-- Judul Renungan -->
+        <div class="form-group row">
+            <label for="inputjudul" class="col-sm-2 col-form-label">Judul</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputjudul" name="judul">
             </div>
-          </div>
+        </div>
+
+        <!-- Judul Renungan -->
+        <div class="form-group row">
+            <label for="inputayat" class="col-sm-2 col-form-label">Ayat Alkitab</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputjudul" name="ayat">
+            </div>
+        </div>
+
+
+        
+        <!-- Tanggal Pengumuman -->
+        <div class="form-group row">
+            <label for="inputtanggal" class="col-sm-2 col-form-label">Tanggal</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="inputtanggal" name="tanggal">
+            </div>
+        </div>
+
+        <!-- Isi Renungan Harian -->
+
+        
+        <!-- Deskripsi Pengumuman -->
+        <div class="form-group row">
+            <label for="inputrenungan" class="col-sm-2 col-form-label">Renungan</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="inputrenungan" name="renungan" rows="4"></textarea>
+            </div>
+        </div>
+        
+        
+
+        <!-- Tombol Submit -->
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Tambah Data</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- /.container-fluid -->
+
+
+
+
+          <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
 
-
-
         <!-- Footer -->
-        <footer class="sticky-footer bg-black">
+        <footer class="sticky-footer bg-white">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
               <span>Copyright &copy; Your Website 2021</span>

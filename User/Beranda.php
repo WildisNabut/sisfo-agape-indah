@@ -29,8 +29,17 @@
     </div>
 
     <div class="container">
+    <ul class="facility-list">
+        <li><i data-feather="book"></i> Perpustakaan</li>
+        <li><i data-feather="flask"></i> Laboratorium</li>
+        <li><i data-feather="activity"></i> Lapangan Olahraga</li>
+        <li><i data-feather="monitor"></i> Ruang Komputer</li>
+        <li><i data-feather="cpu"></i> Ruang Biologi</li>
+    </ul>
+</div>
 
-    </div>
+
+
 
    <!-- Footer Section -->
 <footer>
