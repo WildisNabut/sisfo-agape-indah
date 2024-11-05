@@ -174,12 +174,11 @@
                     </tr>
                 </thead>
                 <?php
-                              include 'koneksi.php';
-                              $i = 1;
-                              $data = mysqli_query($koneksi, "SELECT * FROM  pengumuman");
-
-                              while($d =  mysqli_fetch_array($data) ){
-                              ?>
+                  include 'koneksi.php';
+                  $i = 1;
+                  $data = mysqli_query($koneksi, "SELECT * FROM  pengumuman");
+                  while($d =  mysqli_fetch_array($data) ){
+                   ?>
                 <tbody>
                     <tr>
                     <th> <?php echo $i++; ?> </th>

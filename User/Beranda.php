@@ -29,14 +29,37 @@
     </div>
 
     <div class="container">
-    <ul class="facility-list">
-        <li><i data-feather="book"></i> Perpustakaan</li>
-        <li><i data-feather="flask"></i> Laboratorium</li>
-        <li><i data-feather="activity"></i> Lapangan Olahraga</li>
-        <li><i data-feather="monitor"></i> Ruang Komputer</li>
-        <li><i data-feather="cpu"></i> Ruang Biologi</li>
-    </ul>
+    <?php
+    include 'koneksi.php';
+    // Mengambil data dari tabel renungan
+    $data = mysqli_query($koneksi, "SELECT * FROM renungan");
+
+    // Memeriksa apakah ada data
+    if (mysqli_num_rows($data) > 0) {
+        while($d = mysqli_fetch_array($data)) {
+            ?>
+            <section class="mb-3"> <!-- Section untuk setiap renungan -->
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title"><?php echo $d['judul']; ?></h2>
+                        <p class="card-text"><?php echo $d['isi']; ?></p>
+                        <div class="date">
+                        <i data-feather="book-open" width="15" height="15" class="icon"></i>
+                        <?php echo $d['ayat']; ?>
+                         <i data-feather="calendar" width="15" height="15" class="icon"></i>
+                          <?php echo $d['tanggal']; ?>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <?php 
+        }
+    } else {
+        echo "<p>Tidak ada data renungan.</p>"; // Pesan jika tidak ada data
+    }
+    ?>
 </div>
+
 
 
 

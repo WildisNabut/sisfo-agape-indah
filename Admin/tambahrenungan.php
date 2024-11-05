@@ -122,12 +122,10 @@
           <!-- End of Topbar -->
 
           
-    <!-- Begin Page Content -->
-     <div><h3 class="h3 mb-0 text-gray-800 text-center w-200">Form Tambah Renungan Harian</h3>
-     </div>
+  
     <div class="container-fluid">
     
-    <form method="POST" action="#">
+    <form method="POST" action="trenungan.php">
 
         <!-- Judul Renungan -->
         <div class="form-group row">
@@ -162,7 +160,7 @@
         <div class="form-group row">
             <label for="inputrenungan" class="col-sm-2 col-form-label">Renungan</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="inputrenungan" name="renungan" rows="4"></textarea>
+                <textarea class="form-control" id="inputrenungan" name="isi" rows="4"></textarea>
             </div>
         </div>
         
