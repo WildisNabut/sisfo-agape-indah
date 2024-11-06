@@ -27,6 +27,61 @@
       <h1>SMP Agape Indah Kupang</h1>
       <p class="moto">Kamu Lebih Kuat dari yang kamu tahu. Lebih Cakap dari yang pernah kamu Impikan. Dan Kamu dicintai lebih Dari yang bisa kamu bayangkan.</p>
     </div>
+     
+
+    <div class="card-container">
+    <?php
+        include 'koneksi.php';
+
+        // Menghitung jumlah guru
+        $result = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM guru");
+        $row = mysqli_fetch_assoc($result);
+        $jml_guru = $row['total'];
+    ?>
+    <div class="card-jumlah">
+        <div class="card-body">
+            <h2 class="judul-card">Total Guru</h2>
+            <p class="jumlah-guru"><?php echo $jml_guru; ?></p>
+        </div>
+    </div>
+
+    <?php
+              include 'koneksi.php';
+
+              // Menghitung jumlah kelas
+              $result = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM siswa");
+              $row = mysqli_fetch_assoc($result);
+              $jml_siswa = $row['total']; // Menyimpan jumlah kelas
+              ?>
+
+             <div class="card-jumlah">
+                <div class="card-body">
+                    <h2 class="judul-card">Total Siswa</h2>
+                    <p class="jumlah-guru"><?php echo $jml_siswa; ?></p>
+                </div>
+            </div>
+
+
+            <?php
+              include 'koneksi.php';
+
+              // Menghitung jumlah kelas
+              $result = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kelas");
+              $row = mysqli_fetch_assoc($result);
+              $jml_kelas = $row['total']; // Menyimpan jumlah kelas
+              ?>
+              
+            <div class="card-jumlah">
+                <div class="card-body">
+                    <h2 class="judul-card">Total kelas</h2>
+                    <p class="jumlah-guru"><?php echo $jml_kelas; ?></p>
+                </div>
+            </div>
+
+    <!-- Tambahkan card lain di sini jika ada -->
+</div>
+
+
 
     <div class="container">
     <?php
@@ -76,15 +131,6 @@
       <p><strong>Alamat:</strong> Jl. Contoh, Kota Contoh, Provinsi Contoh, Indonesia</p>
       <p><strong>Email:</strong> smpagapeindah@example.com</p>
       <div class="social-icons">
-        <a href="#"><i data-feather="facebook" class="icon-small"></i></a>
-        <a href="#"><i data-feather="youtube" class="icon-small"></i></a>
-        <a href="https://www.instagram.com/smpkagapeindah?igsh=MThtejJxN3Ywem54aw==">
-          <i data-feather="instagram" class="icon-small"></i>
-      </div>
-    </div>
-    
-    <!-- Peta Lokasi -->
-    <div class="footer-section map">
 
       <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17445.841308163348!2d123.60862167630117!3d-10.16776760510314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c56835992a6fbf3%3A0xc4b28a965a40d8b!2sSekolah%20Menengah%20Pertama%20Agape%20Indah!5e0!3m2!1sid!2sid!4v1730387975655!5m2!1sid!2sid"
@@ -93,7 +139,9 @@
       allowfullscreen=""
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>    </div>
+    ></iframe> 
+      </div>
+    </div>
   </div>
 
   <!-- Footer Bottom -->

@@ -259,8 +259,8 @@ h2 {
 
 .footer .map iframe {
   border: 0;
-  width: 500px;
-  height: 250px;
+  width: 300px;
+  height: 150px;
 }
 
 .footer-bottom {
@@ -336,13 +336,60 @@ h2 {
 @media (min-width: 758px) {
   .container .card {
     font-size: 90%;
-    flex: 0 0 calc(50% - 20px); /* Tampilan 2 card di layar tablet */
+    grid-template-columns: repeat(2, 1fr); /* Tampilan 2 card di layar tablet */
   }
 }
 
 @media (min-width: 1366px) {
   .container .card {
     font-size: 75%;
-    flex: 0 0 calc(25% - 20px); /* Tampilan 4 card di layar besar */
+    grid-template-columns: repeat(4, 1fr); /* Tampilan 4 card di layar besar */
   }
+}
+
+/* Mengatur container untuk card */
+.card-container {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+}
+
+/* Mengatur layout untuk layar besar, medium, dan kecil */
+@media (min-width: 1024px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .card-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Gaya untuk setiap card */
+.card-jumlah {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  text-align: center;
+}
+
+.judul-card {
+  font-size: 1.5em;
+  color: #333;
+  margin: 0;
+}
+
+.jumlah-guru {
+  font-size: 2em;
+  color: #555;
+  margin: 10px 0 0;
 }
