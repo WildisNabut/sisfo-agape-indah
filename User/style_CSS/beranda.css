@@ -4,7 +4,7 @@ body {
   padding: 0;
   font-family: "Arial", sans-serif;
   line-height: 1.6;
-  background: #f0f4c3;
+  background: #ffffff;
   color: #333;
   transition: background 0.5s;
 }
@@ -91,7 +91,7 @@ body {
 .hero {
   position: relative;
   background-image: url("background.jpg"); /* Ganti dengan URL gambar latar belakang */
-  background-color: rgba(18, 14, 5, 0.829); /* Warna overlay hitam dengan transparansi 50% */
+  background-color: rgba(33, 26, 13, 0.829); /* Warna overlay hitam dengan transparansi 50% */
   background-size: cover;
   background-position: center;
   background-blend-mode: overlay; /* Menggabungkan warna latar belakang dan gambar */
@@ -100,7 +100,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: rgb(0, 0, 0);
   text-align: center;
   transition: background-image 1s ease-in-out;
 }
@@ -111,7 +111,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   z-index: 1;
 }
 
@@ -203,7 +203,7 @@ h2 {
 
 /* Styling footer */
 .footer {
-  background-color: #4b3504;
+  background-color: #1a1305;
   color: white;
   padding: 40px 0;
   display: flex;
@@ -329,7 +329,7 @@ h2 {
 @media (min-width: 450px) {
   .container .card {
     font-size: 80%;
-    max-width: 88%; /* Tampilan 1 card di layar kecil */
+    grid-template-columns: repeat(1, 1fr); /* Tampilan 1 card di layar kecil */
   }
 }
 
@@ -342,7 +342,7 @@ h2 {
 
 @media (min-width: 1366px) {
   .container .card {
-    font-size: 75%;
+    font-size: 95%;
     grid-template-columns: repeat(4, 1fr); /* Tampilan 4 card di layar besar */
   }
 }
@@ -392,4 +392,40 @@ h2 {
   font-size: 2em;
   color: #555;
   margin: 10px 0 0;
+}
+
+.data {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.fasilitas-container {
+  display: flex; /* Membuat container menjadi flex */
+  align-items: center; /* Menyelaraskan item secara vertikal */
+  flex-wrap: wrap; /* Mengizinkan item membungkus jika diperlukan */
+  margin: 20px 0;
+  padding: 20px;
+  background-color: white;
+  justify-content: space-between; /* Mengatur jarak antar item */
+}
+
+#fasilitas {
+  margin: 0 20px 20px 0; /* Jarak antara judul dan item */
+  font-size: 2em;
+  flex-basis: 100%; /* Mengizinkan judul untuk mengambil satu baris penuh */
+}
+
+.fasilitas-item {
+  margin: 10px; /* Jarak antara item */
+  font-size: 1em;
+  display: flex; /* Membuat paragraf menjadi flex container */
+  align-items: center; /* Menyelaraskan ikon dan teks secara vertikal */
+}
+
+.icon-small {
+  margin-right: 5px; /* Jarak antara ikon dan teks */
+  width: 20px; /* Ukuran ikon */
+  height: 20px; /* Ukuran ikon */
 }

@@ -27,9 +27,8 @@
       <h1>SMP Agape Indah Kupang</h1>
       <p class="moto">Kamu Lebih Kuat dari yang kamu tahu. Lebih Cakap dari yang pernah kamu Impikan. Dan Kamu dicintai lebih Dari yang bisa kamu bayangkan.</p>
     </div>
-     
 
-    <div class="card-container">
+<div class="card-container">
     <?php
         include 'koneksi.php';
 
@@ -81,20 +80,35 @@
     <!-- Tambahkan card lain di sini jika ada -->
 </div>
 
+<div class="fasilitas-container">
+    <h1 id="fasilitas">Fasilitas Sekolah</h1>
+    <div class="fasilitas-item">
+        <i data-feather="activity" class="icon-small"></i> Lapangan
+    </div>
+    <div class="fasilitas-item">
+        <i data-feather="grid" class="icon-small"></i> Ruang Kelas
+    </div>
+    <div class="fasilitas-item">
+        <i data-feather="airplay" class="icon-small"></i> AC
+    </div>
+    <div class="fasilitas-item">
+        <i data-feather="monitor" class="icon-small"></i> Laboratorium Komputer
+    </div>
+</div>
 
 
     <div class="container">
     <?php
     include 'koneksi.php';
-    // Mengambil data dari tabel renungan
-    $data = mysqli_query($koneksi, "SELECT * FROM renungan");
 
+    // Mengambil data dari tabel renungan dan mengurutkannya berdasarkan tanggal terbaru
+$data = mysqli_query($koneksi, "SELECT * FROM renungan ORDER BY tanggal DESC LIMIT 10");
     // Memeriksa apakah ada data
     if (mysqli_num_rows($data) > 0) {
         while($d = mysqli_fetch_array($data)) {
             ?>
             <section class="mb-3"> <!-- Section untuk setiap renungan -->
-                <div class="card">
+                <div sclass="card">
                     <div class="card-body">
                         <h2 class="card-title"><?php echo $d['judul']; ?></h2>
                         <p class="card-text"><?php echo $d['isi']; ?></p>
@@ -114,9 +128,7 @@
     }
     ?>
 </div>
-
-
-
+   
 
 
    <!-- Footer Section -->
